@@ -97,7 +97,7 @@ public class IngredientManager {
 	
 	public void removeAll() {
 		try {
-			removeAllStmt.executeQuery();
+			removeAllStmt.executeUpdate();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
