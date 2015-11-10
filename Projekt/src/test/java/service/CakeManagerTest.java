@@ -2,6 +2,7 @@ package service;
 
 import static org.junit.Assert.*;
 
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -33,13 +34,10 @@ public class CakeManagerTest {
 		cManager.addCake(cake);
 		
 		List<Cake> cakes = cManager.getAll();
-		if(cakes.size() != 0) {
-			Cake c = cakes.get(cakes.size()-1);
+		Cake c = cakes.get(0);
 		
-			assertEquals(NAMES.get(0), c.getName());
-			assertEquals(PRICES.get(0), c.getPrice(), EPSILON);
-		} else
-			assertNotNull(null);
+		assertEquals(NAMES.get(0), c.getName());
+		assertEquals(PRICES.get(0), c.getPrice(), EPSILON);
 	}
 	
 	@Test
@@ -54,7 +52,11 @@ public class CakeManagerTest {
 			ind++;
 		}
 		
-		cManager.addCakes(cakes);
+		try {
+			cManager.addCakes(cakes);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 		
 		cakes = cManager.getAll();
 		ind = cakes.size() - NAMES.size();
@@ -73,28 +75,28 @@ public class CakeManagerTest {
 	public void checkUpdatingCake() {
 		
 		List<Cake> cakes = cManager.getAll();
-		int ind = cakes.get(cakes.size()-1).getId() + 1;
+		long ind = cakes.get(0).getId() + 1;
 		
 		Cake c = new Cake(NAMES.get(0), PRICES.get(0));
 		
 		cManager.addCake(c);
 		c.setId(ind);
 		
-		cManager.updateCake(c, NAMES.get(1), PRICES.get(0));
+		cManager.updateCake(c, NAMES.get(1), PRICES.get(2));
 				
 		c = cManager.getOne(c.getId());
 		
 		assertEquals(NAMES.get(1), c.getName());
-		assertEquals(PRICES.get(0), c.getPrice(), EPSILON);
+		assertEquals(PRICES.get(2), c.getPrice(), EPSILON);
 	}
 	
 	@Test
 	public void checkDeletingCake() {
 		
 		List<Cake> cakes = cManager.getAll();
-		int ind = cakes.get(cakes.size()-1).getId() + 1;
+		long ind = cakes.get(0).getId() + 1;
 		
-		Cake cake = new Cake(NAMES.get(0), PRICES.get(0));
+		Cake cake = new Cake(NAMES.get(1), PRICES.get(1));
 		
 		cManager.addCake(cake);
 		cake.setId(ind);

@@ -79,16 +79,16 @@ public class CakeManager {
 		return nr;
 	}
 	
-	public Cake getOne(int id) {
+	public Cake getOne(long id) {
 		
 		Cake c = new Cake();
 		
 		try {
-			getStmt.setInt(1, id);
+			getStmt.setLong(1, id);
 			ResultSet rs = getStmt.executeQuery();
 			rs.next();
 			
-			c.setId(rs.getInt("id"));
+			c.setId(rs.getLong("id"));
 			c.setName(rs.getString("name"));
 			c.setPrice(rs.getDouble("price"));
 		} catch (SQLException e) {
@@ -108,7 +108,7 @@ public class CakeManager {
 			
 			while(rs.next()) {
 				Cake c = new Cake();
-				c.setId(rs.getInt("id"));
+				c.setId(rs.getLong("id"));
 				c.setName(rs.getString("name"));
 				c.setPrice(rs.getDouble("price"));
 				cakes.add(c);
@@ -141,7 +141,7 @@ public class CakeManager {
 		}
 	}
 	
-	public void addCakes(List<Cake> cakes) {
+	public void addCakes(List<Cake> cakes) throws SQLException {
 		
 		try {
 			con.setAutoCommit(false);
@@ -155,13 +155,9 @@ public class CakeManager {
 			
 			con.commit();
 		} catch(SQLException e) {
-			e.printStackTrace();
+			con.rollback();
 		} finally {
-			 try {
-				con.setAutoCommit(true);
-			} catch (SQLException e) {
-				e.printStackTrace();
-			}
+			con.setAutoCommit(true);
 		}
 	}
 	
@@ -170,7 +166,7 @@ public class CakeManager {
 		try {
 			updateStmt.setString(1, newName);
 			updateStmt.setDouble(2, newPrice);
-			updateStmt.setInt(3, cake.getId());
+			updateStmt.setLong(3, cake.getId());
 			
 			updateStmt.executeUpdate();
 		} catch (SQLException e) {
@@ -180,7 +176,7 @@ public class CakeManager {
 	
 	public void deleteCake(Cake cake) {
 		try {
-			deleteStmt.setInt(1, cake.getId());
+			deleteStmt.setLong(1, cake.getId());
 			
 			deleteStmt.executeUpdate();
 		} catch (SQLException e) {
