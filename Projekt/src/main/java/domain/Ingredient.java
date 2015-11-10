@@ -2,7 +2,7 @@ package domain;
 
 public class Ingredient {
 	
-	private int id;
+	private long id;
 	
 	private String name;
 	private String kind;
@@ -15,10 +15,10 @@ public class Ingredient {
 		this.kind = kind;
 	}
 	
-	public int getId() {
+	public long getId() {
 		return id;
 	}
-	public void setId(int id) {
+	public void setId(long id) {
 		this.id = id;
 	}
 	public String getName() {
