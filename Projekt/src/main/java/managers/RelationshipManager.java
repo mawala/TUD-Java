@@ -41,15 +41,15 @@ public class RelationshipManager {
 			boolean tableIngredientExists = false;
 			
 			while(rs.next()){
-				if("Cake_has_Ingredient".equalsIgnoreCase(rs.getString("TABLE_NAME"))) {
-					tableExists = true;
-					break;					
-				}
 				if("Cake".equalsIgnoreCase(rs.getString("TABLE_NAME"))) {
 					tableCakeExists = true;
 				}
 				if("Ingredient".equalsIgnoreCase(rs.getString("TABLE_NAME"))) {
 					tableIngredientExists = true;
+				}
+				if("Cake_has_Ingredient".equalsIgnoreCase(rs.getString("TABLE_NAME"))) {
+					tableExists = true;
+					break;					
 				}
 			}
 			if(!tableExists && tableCakeExists && tableIngredientExists)

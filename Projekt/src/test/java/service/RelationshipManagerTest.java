@@ -47,10 +47,10 @@ public class RelationshipManagerTest {
 		rManager.addRelationship(cake, ing);
 		
 		List<Relationship> relations = rManager.getAll();
-		Relationship r = relations.get(0); System.out.println(r.getCakeId() + " " + r.getIngredientId() + " "+cManager.getOne(r.getCakeId()).getName());
+		Relationship r = relations.get(0);
 		
-		//assertEquals(CAKE_NAME, cManager.getOne(r.getCakeId()).getName());
-		//assertEquals(ING_NAMES.get(0), iManager.getOne(r.getIngredientId()).getName());
+		assertEquals(CAKE_NAME, cManager.getOne(r.getCakeId()).getName());
+		assertEquals(ING_NAMES.get(0), iManager.getOne(r.getIngredientId()).getName());
 		
 	}
 }
