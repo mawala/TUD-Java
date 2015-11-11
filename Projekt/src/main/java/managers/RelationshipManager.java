@@ -6,6 +6,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.List;
+
+import domain.*;
 
 public class RelationshipManager {
 	
@@ -17,6 +21,9 @@ public class RelationshipManager {
 													"FOREIGN KEY (idCake) REFERENCES Cake(id) ON DELETE CASCADE ON UPDATE CASCADE, " +
 													"FOREIGN KEY (idIngredient) REFERENCES Ingredient(id) ON DELETE CASCADE ON UPDATE CASCADE)";
 	private Statement stmt;
+	
+	private PreparedStatement getAllStmt;
+	private PreparedStatement removeAllStmt;
 	
 	private PreparedStatement addStmt;
 	private PreparedStatement deleteStmt;
@@ -48,6 +55,9 @@ public class RelationshipManager {
 			if(!tableExists && tableCakeExists && tableIngredientExists)
 				stmt.executeUpdate(createTableCakeIngredient);
 			
+			getAllStmt = con.prepareStatement("SELECT * FROM Cake_has_Ingredient");
+			removeAllStmt = con.prepareStatement("DELETE FROM Cake_has_Ingredient");
+			
 			addStmt = con.prepareStatement("INSERT INTO Cake_has_Ingredient VALUES (?, ?)");
 			deleteStmt = con.prepareStatement("DELETE FROM Cake_has_Ingredient WHERE idCake=? AND idIngredient=?");
 			
@@ -61,6 +71,46 @@ public class RelationshipManager {
 	
 	public Connection getConnection() {
 		return con;
+	}
+	
+	public List<Relationship> getAll() {
+		
+		List<Relationship> relations = new ArrayList<Relationship>();
+		
+		try {
+			ResultSet rs = getAllStmt.executeQuery();
+			while(rs.next()) {
+				Relationship r = new Relationship();
+				r.setCakeId(rs.getLong("idCake"));
+				r.setIngredientId(rs.getLong("idIngredient"));
+				relations.add(r);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return relations;
+	}
+	
+	public void removeAll() {
+		
+		try {
+			removeAllStmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
+	public void addRelationship(Cake cake, Ingredient ing) {
+		
+		try {
+			addStmt.setLong(1, cake.getId());
+			addStmt.setLong(2, ing.getId());
+			
+			addStmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }
