@@ -19,12 +19,10 @@ public class Relationship {
 	public void setCakeId(long cakeId) {
 		this.cakeId = cakeId;
 	}
-	public long getIngrdientId() {
+	public long getIngredientId() {
 		return ingredientId;
 	}
-	public void setIngrdientId(long ingredientId) {
+	public void setIngredientId(long ingredientId) {
 		this.ingredientId = ingredientId;
 	}
-	
-	
 }
