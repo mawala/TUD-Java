@@ -51,6 +51,29 @@ public class RelationshipManagerTest {
 		
 		assertEquals(CAKE_NAME, cManager.getOne(r.getCakeId()).getName());
 		assertEquals(ING_NAMES.get(0), iManager.getOne(r.getIngredientId()).getName());
+	}
+	
+	@Test
+	public void checkDeletingRelationship() {
 		
+		cManager.removeAll();
+		iManager.removeAll();
+		rManager.removeAll();
+		
+		Cake cake = new Cake(CAKE_NAME, CAKE_PRICE);
+		cManager.addCake(cake);
+		cake = cManager.getAll().get(0);
+		
+		Ingredient ing = new Ingredient(ING_NAMES.get(1), ING_KINDS.get(1));
+		iManager.addIngredient(ing);
+		ing = iManager.getAll().get(0);
+		
+		rManager.addRelationship(cake, ing);
+		
+		int count = rManager.getAll().size(); System.out.println(count);
+		
+		rManager.removeRelationship(cake, ing);
+		
+		assertEquals(count - 1, rManager.getAll().size());		
 	}
 }
