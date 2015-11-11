@@ -42,6 +42,9 @@ public class CakeManagerTest {
 	
 	@Test
 	public void checkAddingCakes() {
+		
+		cManager.removeAll();
+		
 		List<Cake> cakes = new ArrayList<Cake>();
 		Cake c;
 		int ind = 0;
@@ -74,32 +77,30 @@ public class CakeManagerTest {
 	@Test
 	public void checkUpdatingCake() {
 		
-		List<Cake> cakes = cManager.getAll();
-		long ind = cakes.get(0).getId() + 1;
+		cManager.removeAll();
 		
 		Cake c = new Cake(NAMES.get(0), PRICES.get(0));
 		
 		cManager.addCake(c);
-		c.setId(ind);
+		c.setId(cManager.getAll().get(0).getId());
 		
-		cManager.updateCake(c, NAMES.get(1), PRICES.get(2));
+		cManager.updateCake(c, NAMES.get(1), PRICES.get(1));
 				
 		c = cManager.getOne(c.getId());
 		
 		assertEquals(NAMES.get(1), c.getName());
-		assertEquals(PRICES.get(2), c.getPrice(), EPSILON);
+		assertEquals(PRICES.get(1), c.getPrice(), EPSILON);
 	}
 	
 	@Test
 	public void checkDeletingCake() {
 		
-		List<Cake> cakes = cManager.getAll();
-		long ind = cakes.get(0).getId() + 1;
-		
+		cManager.removeAll();
+				
 		Cake cake = new Cake(NAMES.get(1), PRICES.get(1));
 		
 		cManager.addCake(cake);
-		cake.setId(ind);
+		cake.setId(cManager.getAll().get(0).getId());
 		
 		int nr = cManager.count();
 		
