@@ -113,4 +113,16 @@ public class RelationshipManager {
 		}
 	}
 	
+	public void removeRelationship(Cake cake, Ingredient ing) {
+		
+		try {
+			deleteStmt.setLong(1, cake.getId());
+			deleteStmt.setLong(2, ing.getId());
+			
+			deleteStmt.executeUpdate();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+	}
+	
 }
