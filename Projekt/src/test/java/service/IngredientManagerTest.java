@@ -14,7 +14,7 @@ public class IngredientManagerTest {
 	IngredientManager iManager = new IngredientManager();
 	
 	private final static String NAME = "Milk";
-	private final static String KIND = "Dairy";
+	private final static String KIND = "Cow";
 	
 	@Test
 	public void checkConnection() {

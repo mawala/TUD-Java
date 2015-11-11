@@ -20,9 +20,10 @@ public class IngredientManager {
 										"name varchar(40), kind varchar(40))";
 	private Statement stmt;
 	
+	private PreparedStatement getStmt;
 	private PreparedStatement getAllStmt;
 	private PreparedStatement removeAllStmt;
-	private PreparedStatement countStmt;
+	
 	private PreparedStatement addStmt;
 	
 	public IngredientManager() {
@@ -42,14 +43,11 @@ public class IngredientManager {
 			if(!tableExists)
 				stmt.executeUpdate(createTableIngredient);
 						
-			//getStmt = con.prepareStatement("SELECT * FROM Cake WHERE id=?");
+			getStmt = con.prepareStatement("SELECT * FROM Ingredient WHERE id=?");
 			getAllStmt = con.prepareStatement("SELECT * FROM Ingredient");
 			removeAllStmt = con.prepareStatement("DELETE FROM Ingredient");
-			countStmt = con.prepareStatement("SELECT count(*) FROM Ingredient");
 			
 			addStmt = con.prepareStatement("INSERT INTO Ingredient (name, kind) VALUES (?, ?)");
-			//updateStmt = con.prepareStatement("UPDATE Cake SET name=?, price=? WHERE id=?");
-			//deleteStmt = con.prepareStatement("DELETE FROM Cake WHERE id=?");
 			
 		} catch(SQLException e) {
 			e.printStackTrace();
@@ -59,20 +57,24 @@ public class IngredientManager {
 	public Connection getConnection() {
 		return con;
 	}
-	
-	public int count() {
 		
-		int nr = 0;
+	public Ingredient getOne(long id) {
+		
+		Ingredient ing = new Ingredient();
 		
 		try {
-			ResultSet rs = countStmt.executeQuery();
-			if (rs.next())
-				nr = rs.getInt(1);
+			getStmt.setLong(1, id);
+			ResultSet rs = getStmt.executeQuery();
+			rs.next();
+			
+			ing.setId(rs.getLong("id"));
+			ing.setName(rs.getString("name"));
+			ing.setKind(rs.getString("kind"));
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		
-		return nr;
+		return ing;
 	}
 	
 	public List<Ingredient> getAll() {
