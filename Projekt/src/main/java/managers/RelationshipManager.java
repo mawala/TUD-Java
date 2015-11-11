@@ -62,7 +62,7 @@ public class RelationshipManager {
 			deleteStmt = con.prepareStatement("DELETE FROM Cake_has_Ingredient WHERE idCake=? AND idIngredient=?");
 			
 			getIngsOfCakeStmt = con.prepareStatement("SELECT i.id, i.name, i.kind FROM Cake c JOIN Cake_has_Ingredient ci " +
-					"ON c.id=ci.idCake JOIN Ingredient i ON i.id=ci.idIngredient");
+					"ON c.id=ci.idCake JOIN Ingredient i ON i.id=ci.idIngredient WHERE c.id=?");
 			
 		} catch(SQLException e) {
 			e.printStackTrace();
@@ -123,6 +123,29 @@ public class RelationshipManager {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public List<Ingredient> getIngdredientsOfCake(Cake cake) {
+		
+		List<Ingredient> ings = new ArrayList<Ingredient>();
+		
+		try {
+			getIngsOfCakeStmt.setLong(1, cake.getId());
+			
+			ResultSet rs = getIngsOfCakeStmt.executeQuery();
+			
+			while(rs.next()) {
+				Ingredient ing = new Ingredient();
+				ing.setId(rs.getLong("id"));
+				ing.setName(rs.getString("name"));
+				ing.setKind(rs.getString("kind"));
+				ings.add(ing);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return ings;
 	}
 	
 }
