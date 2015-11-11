@@ -70,10 +70,42 @@ public class RelationshipManagerTest {
 		
 		rManager.addRelationship(cake, ing);
 		
-		int count = rManager.getAll().size(); System.out.println(count);
+		int count = rManager.getAll().size();
 		
 		rManager.removeRelationship(cake, ing);
 		
 		assertEquals(count - 1, rManager.getAll().size());		
+	}
+	
+	@Test
+	public void checkGettingIngsofCake() {
+		
+		cManager.removeAll();
+		iManager.removeAll();
+		rManager.removeAll();
+		
+		Cake cake = new Cake(CAKE_NAME, CAKE_PRICE);
+		cManager.addCake(cake);
+		cake = cManager.getAll().get(0);
+		
+		int i = 0;
+		for(String n : ING_NAMES) {
+			Ingredient ing = new Ingredient(n, ING_KINDS.get(i));
+			iManager.addIngredient(ing);
+			i++;
+		}
+		List<Ingredient> ings = iManager.getAll();
+		
+		for(Ingredient ing : ings)
+			rManager.addRelationship(cake, ing);
+		
+		List<Ingredient> ingsOfCake = rManager.getIngdredientsOfCake(cake);
+		
+		i = 0;
+		for (Ingredient ing : ingsOfCake) {
+			assertEquals(ING_NAMES.get(i), ing.getName());
+			assertEquals(ING_KINDS.get(i), ing.getKind());
+			i++;
+		}
 	}
 }
