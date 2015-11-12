@@ -18,6 +18,7 @@ public class CakeManagerTest {
 	
 	private final static List<String> NAMES = Arrays.asList("Cheesecake", "Poppyseed cake", "Apple pie");
 	private final static List<Double> PRICES = Arrays.asList(22.99, 12.50, 15.40);
+	private final static List<Double> WEIGHTS = Arrays.asList(12.6, 10.2, 9.0);
 
 	private static final double EPSILON = 1e-15;
 	
@@ -28,7 +29,7 @@ public class CakeManagerTest {
 	
 	@Test
 	public void checkAddingCake() {
-		Cake cake = new Cake(NAMES.get(0), PRICES.get(0));
+		Cake cake = new Cake(NAMES.get(0), PRICES.get(0), WEIGHTS.get(0));
 		
 		cManager.removeAll();
 		cManager.addCake(cake);
@@ -38,6 +39,7 @@ public class CakeManagerTest {
 		
 		assertEquals(NAMES.get(0), c.getName());
 		assertEquals(PRICES.get(0), c.getPrice(), EPSILON);
+		assertEquals(WEIGHTS.get(0), c.getWeight(), EPSILON);
 	}
 	
 	@Test
@@ -50,7 +52,7 @@ public class CakeManagerTest {
 		int ind = 0;
 		
 		for(String n : NAMES) {
-			c = new Cake(n, PRICES.get(ind));
+			c = new Cake(n, PRICES.get(ind), WEIGHTS.get(ind));
 			cakes.add(c);
 			ind++;
 		}
@@ -68,6 +70,7 @@ public class CakeManagerTest {
 			for(int i = 0; i < NAMES.size(); i++) {
 				assertEquals(NAMES.get(i), cakes.get(ind).getName());
 				assertEquals(PRICES.get(i), cakes.get(ind).getPrice(), EPSILON);
+				assertEquals(WEIGHTS.get(i), cakes.get(ind).getWeight(), EPSILON);
 				ind++;
 			}
 		} else
@@ -79,17 +82,18 @@ public class CakeManagerTest {
 		
 		cManager.removeAll();
 		
-		Cake c = new Cake(NAMES.get(0), PRICES.get(0));
+		Cake c = new Cake(NAMES.get(0), PRICES.get(0), WEIGHTS.get(0));
 		
 		cManager.addCake(c);
 		c.setId(cManager.getAll().get(0).getId());
 		
-		cManager.updateCake(c, NAMES.get(1), PRICES.get(1));
+		cManager.updateCake(c, NAMES.get(1), PRICES.get(1), WEIGHTS.get(1));
 				
 		c = cManager.getOne(c.getId());
 		
 		assertEquals(NAMES.get(1), c.getName());
 		assertEquals(PRICES.get(1), c.getPrice(), EPSILON);
+		assertEquals(WEIGHTS.get(1), c.getWeight(), EPSILON);
 	}
 	
 	@Test
@@ -97,7 +101,7 @@ public class CakeManagerTest {
 		
 		cManager.removeAll();
 				
-		Cake cake = new Cake(NAMES.get(1), PRICES.get(1));
+		Cake cake = new Cake(NAMES.get(1), PRICES.get(1), WEIGHTS.get(1));
 		
 		cManager.addCake(cake);
 		cake.setId(cManager.getAll().get(0).getId());

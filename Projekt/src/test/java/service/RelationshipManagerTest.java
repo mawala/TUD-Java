@@ -16,6 +16,7 @@ public class RelationshipManagerTest {
 	
 	private final static String CAKE_NAME = "Tart";
 	private final static double CAKE_PRICE = 16.20;
+	private final static double CAKE_WEIGHT = 13.5;
 	
 	private final static List<String> ING_NAMES = Arrays.asList("Sugar", "Apple", "Flour");
 	private final static List<String> ING_KINDS = Arrays.asList("White", "Antonovka", "Wheat");
@@ -36,7 +37,7 @@ public class RelationshipManagerTest {
 		cManager.removeAll();
 		iManager.removeAll();
 		
-		Cake cake = new Cake(CAKE_NAME, CAKE_PRICE);
+		Cake cake = new Cake(CAKE_NAME, CAKE_PRICE, CAKE_WEIGHT);
 		cManager.addCake(cake);
 		cake = cManager.getAll().get(0);
 		
@@ -60,7 +61,7 @@ public class RelationshipManagerTest {
 		iManager.removeAll();
 		rManager.removeAll();
 		
-		Cake cake = new Cake(CAKE_NAME, CAKE_PRICE);
+		Cake cake = new Cake(CAKE_NAME, CAKE_PRICE, CAKE_WEIGHT);
 		cManager.addCake(cake);
 		cake = cManager.getAll().get(0);
 		
@@ -84,7 +85,7 @@ public class RelationshipManagerTest {
 		iManager.removeAll();
 		rManager.removeAll();
 		
-		Cake cake = new Cake(CAKE_NAME, CAKE_PRICE);
+		Cake cake = new Cake(CAKE_NAME, CAKE_PRICE, CAKE_WEIGHT);
 		cManager.addCake(cake);
 		cake = cManager.getAll().get(0);
 		

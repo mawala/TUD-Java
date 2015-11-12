@@ -6,14 +6,16 @@ public class Cake {
 	
 	private String name;
 	private double price;
+	private double weight;
 	
 	
 	public Cake() {
 	}
-	public Cake(String name, double price) {
+	public Cake(String name, double price, double weight) {
 		super();
 		this.name = name;
 		this.price = price;
+		this.weight = weight;
 	}
 	
 	public long getId() {
@@ -33,5 +35,11 @@ public class Cake {
 	}
 	public void setPrice(double price) {
 		this.price = price;
+	}
+	public double getWeight() {
+		return weight;
+	}
+	public void setWeight(double weight) {
+		this.weight = weight;
 	}
 }
