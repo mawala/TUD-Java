@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="5" failures="0" name="service.CakeManagerTest" time="0.02" errors="0" skipped="0">
+<testsuite tests="4" failures="0" name="service.RelationshipManagerTest" time="0.01" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="Java(TM) SE Runtime Environment"/>
     <property name="sun.boot.library.path" value="C:\Progra~1\Java\jdk1.8.0_65\jre\bin"/>
@@ -63,9 +63,8 @@
     <property name="sun.desktop" value="windows"/>
     <property name="sun.cpu.isalist" value="amd64"/>
   </properties>
-  <testcase classname="service.CakeManagerTest" name="checkAddingCake" time="0.01"/>
-  <testcase classname="service.CakeManagerTest" name="checkConnection" time="0"/>
-  <testcase classname="service.CakeManagerTest" name="checkUpdatingCake" time="0.01"/>
-  <testcase classname="service.CakeManagerTest" name="checkDeletingCake" time="0"/>
-  <testcase classname="service.CakeManagerTest" name="checkAddingCakes" time="0"/>
+  <testcase classname="service.RelationshipManagerTest" name="checkDeletingRelationship" time="0"/>
+  <testcase classname="service.RelationshipManagerTest" name="checkConnection" time="0"/>
+  <testcase classname="service.RelationshipManagerTest" name="checkAddingRelationship" time="0"/>
+  <testcase classname="service.RelationshipManagerTest" name="checkGettingIngsofCake" time="0.01"/>
 </testsuite>
